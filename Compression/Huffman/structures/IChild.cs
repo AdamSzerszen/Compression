@@ -8,11 +8,9 @@ namespace Huffman.structures
         bool Leaf { get; set; }
         IChild Left { get; set; }
         IChild Right { get; set; }
+        Sign Sign { get; set; }
 
         int Occurence();
-
-        Sign GetSign();
-
         void SetCode(string code);
         List<DictionaryNode> GetFlatList();
     }

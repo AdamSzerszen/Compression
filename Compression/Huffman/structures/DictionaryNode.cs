@@ -4,8 +4,6 @@ namespace Huffman.structures
 {
     public class DictionaryNode : IChild
     {
-        private readonly Sign _sign;
-
         public DictionaryNode()
         {
             Leaf = false;
@@ -13,11 +11,12 @@ namespace Huffman.structures
 
         public DictionaryNode(Sign sign)
         {
-            _sign = sign;
             Leaf = true;
+            Sign = sign;
         }
 
         public IChild Right { get; set; }
+        public Sign Sign { get; set; }
 
         public IChild Left { get; set; }
 
@@ -28,19 +27,13 @@ namespace Huffman.structures
 
             if (Right != null) occurrence += Right.Occurence();
 
-            if (Leaf) occurrence += _sign.Occurence;
+            if (Leaf) occurrence += Sign.Occurence;
 
             return occurrence;
         }
 
         public string Code { get; set; }
         public bool Leaf { get; set; }
-
-
-        public Sign GetSign()
-        {
-            return _sign;
-        }
 
         public void SetCode(string code)
         {

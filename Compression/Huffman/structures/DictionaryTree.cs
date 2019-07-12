@@ -25,7 +25,7 @@ namespace Huffman.structures
         private void PrepareDictionary(DictionaryNode root, Dictionary<char, string> dict)
         {
             var flattedTree = root.GetFlatList().ToList();
-            foreach (var dictionaryNode in flattedTree) dict.Add(dictionaryNode.GetSign().Value, dictionaryNode.Code);
+            foreach (var dictionaryNode in flattedTree) dict.Add(dictionaryNode.Sign.Value, dictionaryNode.Code);
         }
 
         private void BuildTree()
