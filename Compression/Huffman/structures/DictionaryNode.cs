@@ -20,7 +20,7 @@ namespace Huffman.structures
         public IChild Right { get; set; }
         public Sign Sign { get; set; }
 
-        int IChild.Occurence
+        public int Occurence
         {
             get
             {
