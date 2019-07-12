@@ -37,9 +37,9 @@ namespace Huffman.structures
                 var smallest = ExtractMinimalSubtree();
                 var secondSmallest = ExtractMinimalSubtree();
 
-                var combo = new DictionaryNode {Leaf = false, Left = smallest, Right = secondSmallest};
+                var subtree = new DictionaryNode {Leaf = false, Left = smallest, Right = secondSmallest};
 
-                _tree.Add(combo);
+                _tree.Add(subtree);
             }
         }
 
