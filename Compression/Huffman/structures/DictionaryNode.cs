@@ -55,6 +55,7 @@ namespace Huffman.structures
         public List<DictionaryNode> GetFlatList()
         {
             if (Leaf)
+
                 return new List<DictionaryNode>
                 {
                     this
