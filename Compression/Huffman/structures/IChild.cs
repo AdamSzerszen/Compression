@@ -11,7 +11,6 @@ namespace Huffman.structures
         Sign Sign { get; set; }
 
         int Occurence();
-        void SetCode(string code);
         List<DictionaryNode> GetFlatList();
     }
 }

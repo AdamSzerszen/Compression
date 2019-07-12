@@ -15,9 +15,11 @@ namespace Huffman.structures
             BuildTree();
 
             var root = _tree.FirstOrDefault();
-            root?.SetCode("");
-
-            if (root != null) PrepareDictionary(root, dict);
+            if (root != null)
+            {
+                root.Code = "";
+                PrepareDictionary(root, dict);
+            }
 
             return dict;
         }

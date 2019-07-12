@@ -4,6 +4,8 @@ namespace Huffman.structures
 {
     public class DictionaryNode : IChild
     {
+        private string _code;
+
         public DictionaryNode()
         {
             Leaf = false;
@@ -32,19 +34,22 @@ namespace Huffman.structures
             return occurrence;
         }
 
-        public string Code { get; set; }
-        public bool Leaf { get; set; }
-
-        public void SetCode(string code)
+        public string Code
         {
-            Code = code;
-
-            if (!Leaf)
+            get => _code;
+            set
             {
-                Left.SetCode(code + "0");
-                Right.SetCode(code + "1");
+                _code = value;
+
+                if (!Leaf)
+                {
+                    Left.Code = _code + "0";
+                    Right.Code = _code + "1";
+                }
             }
         }
+
+        public bool Leaf { get; set; }
 
         public List<DictionaryNode> GetFlatList()
         {
