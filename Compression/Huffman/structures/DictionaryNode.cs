@@ -17,6 +17,8 @@ namespace Huffman.structures
             Sign = sign;
         }
 
+        public IChild Left { get; set; }
+        public bool Leaf { get; set; }
         public IChild Right { get; set; }
         public Sign Sign { get; set; }
 
@@ -35,8 +37,6 @@ namespace Huffman.structures
             }
         }
 
-        public IChild Left { get; set; }
-
         public string Code
         {
             get => _code;
@@ -51,8 +51,6 @@ namespace Huffman.structures
                 }
             }
         }
-
-        public bool Leaf { get; set; }
 
         public List<DictionaryNode> GetFlatList()
         {
