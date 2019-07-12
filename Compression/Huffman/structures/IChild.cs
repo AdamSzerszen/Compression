@@ -9,8 +9,7 @@ namespace Huffman.structures
         IChild Left { get; set; }
         IChild Right { get; set; }
         Sign Sign { get; set; }
-
-        int Occurence();
+        int Occurence { get; }
         List<DictionaryNode> GetFlatList();
     }
 }

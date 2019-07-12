@@ -45,8 +45,8 @@ namespace Huffman.structures
 
         private DictionaryNode ExtractMinimalSubtree()
         {
-            var min = _tree.Min(x => x.Occurence());
-            var smallest = _tree.FirstOrDefault(x => x.Occurence() == min);
+            var min = _tree.Min(x => ((IChild) x).Occurence);
+            var smallest = _tree.FirstOrDefault(x => ((IChild) x).Occurence == min);
             _tree.Remove(smallest);
             return smallest;
         }

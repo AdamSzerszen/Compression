@@ -20,19 +20,22 @@ namespace Huffman.structures
         public IChild Right { get; set; }
         public Sign Sign { get; set; }
 
-        public IChild Left { get; set; }
-
-        public int Occurence()
+        int IChild.Occurence
         {
-            var occurrence = 0;
-            if (Left != null) occurrence += Left.Occurence();
+            get
+            {
+                var occurrence = 0;
+                if (Left != null) occurrence += Left.Occurence;
 
-            if (Right != null) occurrence += Right.Occurence();
+                if (Right != null) occurrence += Right.Occurence;
 
-            if (Leaf) occurrence += Sign.Occurence;
+                if (Leaf) occurrence += Sign.Occurence;
 
-            return occurrence;
+                return occurrence;
+            }
         }
+
+        public IChild Left { get; set; }
 
         public string Code
         {
