@@ -46,6 +46,10 @@
             <Project>{0e5a8d06-81d2-4b3d-bcb7-f9f9cc0448b9}</Project>
             <Name>Huffman</Name>
         </ProjectReference>
+        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+            <Project>{ccc350a3-442c-4968-bcd1-0f2193bf64f4}</Project>
+            <Name>Infrastructure</Name>
+        </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
