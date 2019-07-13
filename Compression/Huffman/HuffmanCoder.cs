@@ -21,31 +21,13 @@ namespace Huffman
         {
             if (_dictionary != null)
             {
-                var fixedBits = (int) char.GetNumericValue(cipher.ElementAt(cipher.Length - 1));
-                cipher = cipher.Remove(cipher.Length - 1, 1);
+                var fixedBits = GetFixedBitsCount(ref cipher);
                 var cipherBinary = GetStringCode(cipher);
                 var stringBuilder = new StringBuilder();
                 var tempCode = string.Copy(cipherBinary);
 
-                while (tempCode.Length > 8)
-                {
-                    var length = 0;
-                    string tempPart;
-                    do
-                    {
-                        length++;
-                        tempPart = tempCode.Substring(0, length);
-                    } while (!_dictionary.ContainsValue(tempPart));
-
-                    stringBuilder.Append(_dictionary.FirstOrDefault(x => x.Value == tempPart).Key);
-                    tempCode = tempCode.Remove(0, length);
-                }
-
-                if (tempCode.Length > fixedBits)
-                {
-                    tempCode = tempCode.Remove(tempCode.Length - 1 - fixedBits, fixedBits);
-                    stringBuilder.Append(_dictionary.FirstOrDefault(x => x.Value == tempCode).Key);
-                }
+                tempCode = DecodeContent(tempCode, stringBuilder);
+                FixLastSign(tempCode, fixedBits, stringBuilder);
 
                 return stringBuilder.ToString();
             }
@@ -69,6 +51,41 @@ namespace Huffman
             var processedCipher = ProcessCipherText(encryptedMessageBuilder.ToString());
 
             return processedCipher;
+        }
+
+        private static int GetFixedBitsCount(ref string cipher)
+        {
+            var fixedBits = (int) char.GetNumericValue(cipher.ElementAt(cipher.Length - 1));
+            cipher = cipher.Remove(cipher.Length - 1, 1);
+            return fixedBits;
+        }
+
+        private void FixLastSign(string tempCode, int fixedBits, StringBuilder stringBuilder)
+        {
+            if (tempCode.Length > fixedBits)
+            {
+                tempCode = tempCode.Remove(tempCode.Length - 1 - fixedBits, fixedBits);
+                stringBuilder.Append(_dictionary.FirstOrDefault(x => x.Value == tempCode).Key);
+            }
+        }
+
+        private string DecodeContent(string tempCode, StringBuilder stringBuilder)
+        {
+            while (tempCode.Length > 8)
+            {
+                var length = 0;
+                string tempPart;
+                do
+                {
+                    length++;
+                    tempPart = tempCode.Substring(0, length);
+                } while (!_dictionary.ContainsValue(tempPart));
+
+                stringBuilder.Append(_dictionary.FirstOrDefault(x => x.Value == tempPart).Key);
+                tempCode = tempCode.Remove(0, length);
+            }
+
+            return tempCode;
         }
 
         private string GetStringCode(string encryptedMessage)
