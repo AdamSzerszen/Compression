@@ -21,11 +21,13 @@ namespace Huffman
         {
             if (_dictionary != null)
             {
+                var fixedBits = (int) char.GetNumericValue(cipher.ElementAt(cipher.Length - 1));
+                cipher = cipher.Remove(cipher.Length - 1, 1);
                 var cipherBinary = GetStringCode(cipher);
                 var stringBuilder = new StringBuilder();
                 var tempCode = string.Copy(cipherBinary);
 
-                while (tempCode.Length > 0)
+                while (tempCode.Length > 8)
                 {
                     var length = 0;
                     string tempPart;
@@ -37,6 +39,12 @@ namespace Huffman
 
                     stringBuilder.Append(_dictionary.FirstOrDefault(x => x.Value == tempPart).Key);
                     tempCode = tempCode.Remove(0, length);
+                }
+
+                if (tempCode.Length > fixedBits)
+                {
+                    tempCode = tempCode.Remove(tempCode.Length - 1 - fixedBits, fixedBits);
+                    stringBuilder.Append(_dictionary.FirstOrDefault(x => x.Value == tempCode).Key);
                 }
 
                 return stringBuilder.ToString();
@@ -97,7 +105,11 @@ namespace Huffman
                 tempPart = tempSum;
             }
 
+            var missingBits = 8 - tempPart.Length;
+            for (var i = 0; i < missingBits; i++) tempPart += "0";
+
             if (tempPart.Length > 0) cipherBuilder.Append((char) Convert.ToInt32(tempPart, 2));
+            cipherBuilder.Append(missingBits);
 
             return cipherBuilder.ToString();
         }
